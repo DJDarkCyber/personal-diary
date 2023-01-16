@@ -1,5 +1,6 @@
 # Personal Diary
 
+My first full stack web dev project with python django framework
 
 ## Screenshots
 
