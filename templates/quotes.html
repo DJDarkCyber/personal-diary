@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Personal Diary | Quotes
+        </title>
+
+        {% load static %}
+
+        <link rel="icon" type="image/x-icon" href="{% static 'images/logo/favicon.png' %}">
+        
+        <!--
+            CSS Files
+        -->
+        
+        <link rel="stylesheet" href="{% static 'cssFiles/animateCSS/animate.css-4.1.1/source/animate.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrapCSS/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrapCSS/bootstrap-reboot.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrapCSS/bootstrap-grid.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrap-icons/font/bootstrap-icons.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'cssFiles/styles.css' %}">
+
+        <!--
+            Js Files
+        -->
+        <script src="{% static 'jsFiles/bootstrapJS/bootstrap.min.js' %}"></script>
+        <script src="{% static 'jsFiles/bootstrapJS/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'jsFiles/wow.js/dist/wow.min.js' %}"></script>
+        <script src="{% static 'jsFiles/jQueryFiles/jquery.min.js' %}"></script>
+
+
+        <script>
+            $(function(){
+                new WOW().init();
+            });
+        </script>
+
+        
+    </head>
+<body>
+
+    <!--
+        Header
+    -->
+
+    <div class="headerImage">
+        <div class="headerLogoImage">
+            <img src="{% static 'images/logo/favicon.png' %}" alt="" width="100px" height="90px" style="margin-top: 60px;">
+        </div> 
+        <div class="headerName wow pulse">
+            Personal Diary
+        </div>
+    </div>
+    <header style="display: flex;">
+        <div class="headerOptionArea ">
+            <a href="{% url 'index' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.1s"><i class="bi bi-house-door" style="margin-right: 6px;"></i>Home</a>
+        </div>
+        <div class="headerOptionArea headerOptionAreaActive">
+            <a href="{% url 'quotes' %}" class="headerOptionLink headerOptionLinkActive wow fadeInLeft" data-wow-delay="0.2s"><i class="bi bi-pencil-square" style="margin-right: 6px;"></i> Quotes</a>
+        </div>
+        {% if is_auth == True %}
+        <div class="headerOptionArea">
+            <a href="{% url 'diary' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.2s"><i class="bi bi-book" style="margin-right: 6px;"></i>Your Diary</a>
+        </div>
+        {% endif %}
+        {% if is_auth == False %}
+        <div class="headerOptionArea">
+            <a href="{% url 'SignIn' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.2s"><i class="bi bi-book" style="margin-right: 6px;"></i>Your Diary</a>
+        </div>
+        {% endif %}
+        <div class="headerOptionArea">
+            <a href="{% url 'about' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.3s"><i class="bi bi-person-check" style="margin-right: 6px;"></i>About Us</a>
+        </div>
+        {% if is_auth == False %}
+        <div class="signInOption">
+            <a href="{% url 'SignIn' %}" class="headerOptionLink wow fadeInRight" data-wow-delay="0.4s"><i class="bi bi-person-circle" style="margin-right: 6px;"></i>Sign In</a>
+        </div>
+        {% endif %}
+        {% if is_auth == True %} 
+        <div class="signInOption">
+            <a href="{% url 'settings' %}" class="headerOptionLink wow fadeInRight" data-wow-delay="0.4s"><i class="bi bi-person-circle" style="margin-right: 6px;"></i>{{firstname}}</a>
+        </div>
+        {% endif %}
+    </header>
+
+    <!--
+        End Header
+    -->
+
+    <!--
+        Main Content
+    -->
+
+        <div class="quoteContent">
+            {% for name, quotedTime, title, quote in items %}
+            <div class="everyQuoteContainer">
+                <div class="QuotedUserAndTime">
+                    {{quotedTime}}, {{name}}, 
+                </div>
+                <div class="QuoteTitle">
+                    {{title}}
+                </div>
+                <div class="QuoteContent">
+                    "{{ quote }}" - {{name}}
+                </div>
+            </div>
+            <hr style="margin-top: -5px;">
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            <span class="page-links">
+                {% if items.has_previous %}
+                    <a href="?page={{ items.previous_page_number }}" class="paginationLink"> < Previous</a>
+                {% endif %}
+        
+                <span class="page-current">
+                    Page {{ items.number }} of {{ items.paginator.num_pages }}
+                </span>
+        
+                {% if items.has_next %}
+                    <a href="?page={{ items.next_page_number }}" class="paginationLink">Next ></a>
+                {% endif %}
+            </span>
+        </div>
+        
+
+        {% if is_auth == True %}
+        <div class="postQuotesContainer">
+            <p style="color: #E5E5CB; font-size: 22px; font-weight: 1000;">Submit Your Quote : </p>
+            <div class="formContainer">
+                <form action="{% url 'handle_quote' %}" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="text" class="name" value="{{firstname}}" placeholder="Author Name" name="auth_name" required>
+                    <input type="text" class="title" placeholder="Title" name="quote_title" required>
+                    <!-- <input type="" class="quote" placeholder="Write quote here..."> -->
+                    <textarea name="quote" id="" cols="30" rows="10" placeholder="Write quote here..." required></textarea>
+                    <input type="submit" class="submit" value="Submit Quote">
+                </form>
+            </div> 
+            
+        </div>
+        {% endif %}
+
+        {% if is_auth == False %} 
+
+            <div class="postQuotesContainer" style="width: fit-content;">
+                <a href="{% url 'SignIn' %}" style="color: #E5E5CB;">Sign In To Post Quotes</a>
+            </div>
+
+        {% endif %}
+
+    <!--
+        End Main Content
+    -->
+
+
+</body>
+</html>

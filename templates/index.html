@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Personal Diary | Home
+        </title>
+
+        {% load static %}
+
+        <link rel="icon" type="image/x-icon" href="{% static 'images/logo/favicon.png' %}">
+        
+        <!--
+            CSS Files
+        -->
+        
+        <link rel="stylesheet" href="{% static 'cssFiles/animateCSS/animate.css-4.1.1/source/animate.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrapCSS/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrapCSS/bootstrap-reboot.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrapCSS/bootstrap-grid.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrap-icons/font/bootstrap-icons.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'cssFiles/styles.css' %}">
+
+        <!--
+            Js Files
+        -->
+        <script src="{% static 'jsFiles/bootstrapJS/bootstrap.min.js' %}"></script>
+        <script src="{% static 'jsFiles/bootstrapJS/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'jsFiles/wow.js/dist/wow.min.js' %}"></script>
+        <script src="{% static 'jsFiles/jQueryFiles/jquery.min.js' %}"></script>
+        <script src="{% static 'jsFiles/canvasJS/canvasjs.min.js' %}"></script>
+        <script src="{% static 'jsFiles/myJSFiles/actionPerform.js' %}"></script>
+
+        <script>
+            $(function(){
+                new WOW().init();
+            });
+        </script>
+
+        
+    </head>
+<body>
+
+    <!--
+        Header
+    -->
+
+    <div class="headerImage">
+        <div class="headerLogoImage">
+            <img src="{% static 'images/logo/favicon.png' %}" alt="" width="100px" height="90px" style="margin-top: 60px;">
+        </div> 
+        <div class="headerName wow pulse">
+            Personal Diary
+        </div>
+    </div>
+    <header style="display: flex;">
+        <div class="headerOptionArea headerOptionAreaActive">
+            <a href="{% url 'index' %}" class="headerOptionLink headerOptionLinkActive wow fadeInLeft" data-wow-delay="0.1s"><i class="bi bi-house-door" style="margin-right: 6px;"></i>Home</a>
+        </div>
+        <div class="headerOptionArea">
+            <a href="{% url 'quotes' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.2s"><i class="bi bi-pencil-square" style="margin-right: 6px;"></i> Quotes</a>
+        </div>
+        {% if is_auth == True %}
+        <div class="headerOptionArea">
+            <a href="{% url 'diary' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.2s"><i class="bi bi-book" style="margin-right: 6px;"></i>Your Diary</a>
+        </div>
+        {% endif %}
+        {% if is_auth == False %}
+        <div class="headerOptionArea">
+            <a href="{% url 'SignIn' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.2s"><i class="bi bi-book" style="margin-right: 6px;"></i>Your Diary</a>
+        </div>
+        {% endif %}
+        <div class="headerOptionArea">
+            <a href="{% url 'about' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.3s"><i class="bi bi-person-check" style="margin-right: 6px;"></i>About Us</a>
+        </div>
+        {% if is_auth == False %}
+        <div class="signInOption">
+            <a href="{% url 'SignIn' %}" class="headerOptionLink wow fadeInRight" data-wow-delay="0.4s"><i class="bi bi-person-circle" style="margin-right: 6px;"></i>Sign In</a>
+        </div>
+        {% endif %}
+        {% if is_auth == True %} 
+        <div class="signInOption">
+            <a href="{% url 'settings' %}" class="headerOptionLink wow fadeInRight" data-wow-delay="0.4s"><i class="bi bi-person-circle" style="margin-right: 6px;"></i>{{firstname}}</a>
+        </div>
+        {% endif %}
+    </header>
+
+    <!--
+        End Header
+    -->
+
+    <!--
+        Main Content
+    -->
+    
+
+    <div class="homePageArticle wow fadeInUp">
+        <img src="{% static 'images/otherImages/6509807.jpg' %}" alt="" width="800px" height="400px">
+        <article class="quotesDiary">“A diary with no drawings of me in it? Where are the torrid fantasies? The romance covers?”
+            ― Cassandra Clare</article>
+    </div>
+
+    <hr class="wow fadeIn" data-wow-delay="0.5s">
+
+    <div class="homePageArticle wow fadeInUp" style="place-content: center;">
+        <img src="{% static 'images/otherImages/545221.jpg' %}" alt="" width="1000px" height="400px" style="border-radius: 50px">
+        <div class="getStartedBoxArea" style="border-radius: 50px">
+            <a href="" class="getStartedLink">
+            <div class="getStartedBox">
+                Get Started <i class="bi bi-arrow-right-circle" style="margin-left: 6px;"></i>
+            </div>
+            </a>
+        </div>
+    </div>
+
+    <hr class="wow fadeIn" data-wow-delay="0.5s">
+
+    
+    <hr style="border: solid; width: 80%; margin-bottom: 0px;" class="wow fadeIn" data-wow-delay="0.5s">
+    <div class="aboutThisTitle wow fadeInUp">
+        About This Site
+    </div>
+    <hr style="border: solid; width: 80%; margin-bottom: 0px; margin-top: 0px;" class="wow fadeIn" data-wow-delay="0.5s">
+
+
+    <div class="siteDescription wow fadeIn">
+        <div class="descriptionContainer wow fadeInUp">
+            <p><i class="bi bi-check-circle" style="margin-right: 10px;"></i>Limitless</p>
+        </div>
+        <div class="descriptionContainer wow fadeInUp">
+            <p><i class="bi bi-check-circle" style="margin-right: 10px;"></i>Free Register</p>
+        </div>
+        <div class="descriptionContainer wow fadeInUp">
+            <p><i class="bi bi-check-circle" style="margin-right: 10px;"></i>Your Diary Is Secure Here</p>
+        </div>
+        <div class="descriptionContainer wow fadeInUp">
+            <p><i class="bi bi-check-circle" style="margin-right: 10px;"></i>No Data Leak</p>
+        </div>
+        <div class="descriptionContainer wow fadeInUp">
+            <p><i class="bi bi-check-circle" style="margin-right: 10px;"></i>Fast And Secure</p>
+        </div>
+    </div>
+
+    <hr class="wow fadeIn" data-wow-delay="0.3s">
+    <!--
+        End Main Content
+    -->
+
+    <!--
+        Footer
+    -->
+
+    <footer>
+        <div class="footerDesc">
+            <article style="font-size: 21px; font-weight: 600;">Personal Diary</article>
+            <br>
+            This website stores your memories of day that your wrote.
+            <br>
+            You can Always look back at your old memories.
+        </div>
+
+        <div class="socialMediaLinksContainer">
+            <a href="https://www.instagram.com/djoe_437/" class="socialMediaLinks" target="_blank"><i class="bi bi-instagram"></i></a>
+            <a href="https://twitter.com/Mr__437" class="socialMediaLinks" target="_blank"><i class="bi bi-twitter"></i></a>
+            <a href="https://github.com/DJDarkCyber" class="socialMediaLinks" target="_blank"><i class="bi bi-github"></i></a>
+        </div>
+    </footer>
+
+    <!--
+        End Footer
+    -->
+
+</body>
+</html>

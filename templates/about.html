@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Personal Diary | About
+        </title>
+
+        {% load static %}
+
+        <link rel="icon" type="image/x-icon" href="{% static 'images/logo/favicon.png' %}">
+        
+        <!--
+            CSS Files
+        -->
+        
+        <link rel="stylesheet" href="{% static 'cssFiles/animateCSS/animate.css-4.1.1/source/animate.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrapCSS/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrapCSS/bootstrap-reboot.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrapCSS/bootstrap-grid.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrap-icons/font/bootstrap-icons.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'cssFiles/styles.css' %}">
+
+        <!--
+            Js Files
+        -->
+        <script src="{% static 'jsFiles/bootstrapJS/bootstrap.min.js' %}"></script>
+        <script src="{% static 'jsFiles/bootstrapJS/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'jsFiles/wow.js/dist/wow.min.js' %}"></script>
+        <script src="{% static 'jsFiles/jQueryFiles/jquery.min.js' %}"></script>
+
+        <script>
+            $(function(){
+                new WOW().init();
+            });
+        </script>
+
+        
+    </head>
+<body>
+
+    <!--
+        Header
+    -->
+
+    <div class="headerImage">
+        <div class="headerLogoImage">
+            <img src="{% static 'images/logo/favicon.png' %}" alt="" width="100px" height="90px" style="margin-top: 60px;">
+        </div> 
+        <div class="headerName wow pulse">
+            Personal Diary
+        </div>
+    </div>
+    <header style="display: flex;">
+        <div class="headerOptionArea ">
+            <a href="{% url 'index' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.1s"><i class="bi bi-house-door" style="margin-right: 6px;"></i>Home</a>
+        </div>
+        <div class="headerOptionArea">
+            <a href="{% url 'quotes' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.2s"><i class="bi bi-pencil-square" style="margin-right: 6px;"></i> Quotes</a>
+        </div>
+        {% if is_auth == True %}
+        <div class="headerOptionArea">
+            <a href="{% url 'diary' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.2s"><i class="bi bi-book" style="margin-right: 6px;"></i>Your Diary</a>
+        </div>
+        {% endif %}
+        {% if is_auth == False %}
+        <div class="headerOptionArea">
+            <a href="{% url 'SignIn' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.2s"><i class="bi bi-book" style="margin-right: 6px;"></i>Your Diary</a>
+        </div>
+        {% endif %}
+        <div class="headerOptionArea headerOptionAreaActive">
+            <a href="{% url 'about' %}" class="headerOptionLink headerOptionLinkActive wow fadeInLeft" data-wow-delay="0.3s"><i class="bi bi-person-check" style="margin-right: 6px;"></i>About Us</a>
+        </div>
+        {% if is_auth == False %}
+        <div class="signInOption">
+            <a href="{% url 'SignIn' %}" class="headerOptionLink wow fadeInRight" data-wow-delay="0.4s"><i class="bi bi-person-circle" style="margin-right: 6px;"></i>Sign In</a>
+        </div>
+        {% endif %}
+        {% if is_auth == True %} 
+        <div class="signInOption">
+            <a href="{% url 'settings' %}" class="headerOptionLink wow fadeInRight" data-wow-delay="0.4s"><i class="bi bi-person-circle" style="margin-right: 6px;"></i>{{firstname}}</a>
+        </div>
+        {% endif %}
+    </header>
+
+    <!--
+        End Header
+    -->
+
+    <!--
+        Main Content
+    -->
+
+    
+
+        <div class="aboutContainer">
+            <div class="aboutMeProfie">
+                <div class="profileImage">
+                    <img src="{% static 'images/profilePictures/cod.jpeg' %}" alt="">
+                </div>
+                <div class="aboutMeText">
+                    <table>
+                        <tr>
+                            <td>Name:</td>
+                            <td>Mr.437</td>
+                        </tr>
+                        <tr>
+                            <td>D.O.B:</td>
+                            <td>0000-00-00</td>
+                        </tr>
+                        <tr>
+                            <td>Location:</td>
+                            <td>???</td>
+                        </tr>
+                        <tr>
+                            <td>City:</td>
+                            <td>???</td>
+                        </tr>
+                        <tr>
+                            <td>Status:</td>
+                            <td>Dead</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <hr style="margin-top: 0px; margin-bottom: 0px;">
+            <div class="aboutProfession">
+                <p style="font-size: 20px; color: #3C2A21; font-weight: 800; text-decoration: underline;">Profession</p>
+                <table>
+                    <tr>
+                        <td>Red Team Hacking:</td>
+                        <td>☆☆☆☆☆</td>
+                    </tr>
+                    <tr>
+                        <td>Blue Team Hacking:</td>
+                        <td>☆☆☆☆</td>
+                    </tr>
+                    <tr>
+                        <td>Web Developing:</td>
+                        <td>☆☆☆☆☆</td>
+                    </tr>
+                    <tr>
+                        <td>Data Science:</td>
+                        <td>☆☆☆☆</td>
+                    </tr>
+                    <tr>
+                        <td>Machine Learning:</td>
+                        <td>☆☆☆☆☆</td>
+                    </tr>
+                    <tr>
+                        <td>Computer Vision:</td>
+                        <td>☆☆☆☆</td>
+                    </tr>
+                    <tr>
+                        <td>Game Developing:</td>
+                        <td>☆☆☆</td>
+                    </tr>
+                </table>
+            </div>
+                
+        </div>
+
+    <!--
+        End Main Content
+    -->
+
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Personal Diary | {{user}}
+        </title>
+
+        {% load static %}
+
+        <link rel="icon" type="image/x-icon" href="{% static 'images/logo/favicon.png' %}">
+        
+        <!--
+            CSS Files
+        -->
+        
+        <link rel="stylesheet" href="{% static 'cssFiles/animateCSS/animate.css-4.1.1/source/animate.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrapCSS/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrapCSS/bootstrap-reboot.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrapCSS/bootstrap-grid.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cssFiles/bootstrap-icons/font/bootstrap-icons.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'cssFiles/styles.css' %}">
+
+        <!--
+            Js Files
+        -->
+        <script src="{% static 'jsFiles/bootstrapJS/bootstrap.min.js' %}"></script>
+        <script src="{% static 'jsFiles/bootstrapJS/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'jsFiles/wow.js/dist/wow.min.js' %}"></script>
+        <script src="{% static 'jsFiles/jQueryFiles/jquery.min.js' %}"></script>
+        <script src="{% static 'jsFiles/canvasJS/canvasjs.min.js' %}"></script>
+        <script src="{% static 'jsFiles/myJSFiles/playGrapAnimation.js' %}"></script>
+
+        <script>
+            $(function(){
+                new WOW().init();
+            });
+        </script>
+
+        
+    </head>
+<body>
+
+    <!--
+        Header
+    -->
+
+    <div class="headerImage">
+        <div class="headerLogoImage">
+            <img src="{% static 'images/logo/favicon.png' %}" alt="" width="100px" height="90px" style="margin-top: 60px;">
+        </div> 
+        <div class="headerName wow pulse">
+            Personal Diary
+        </div>
+    </div>
+    <header style="display: flex;">
+        <div class="headerOptionArea ">
+            <a href="{% url 'index' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.1s"><i class="bi bi-house-door" style="margin-right: 6px;"></i>Home</a>
+        </div>
+        <div class="headerOptionArea">
+            <a href="{% url 'quotes' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.2s"><i class="bi bi-pencil-square" style="margin-right: 6px;"></i> Quotes</a>
+        </div>
+        <div class="headerOptionArea">
+            <a href="{% url 'diary' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.2s"><i class="bi bi-book" style="margin-right: 6px;"></i>Your Diary</a>
+        </div>
+        <div class="headerOptionArea">
+            <a href="{% url 'about' %}" class="headerOptionLink wow fadeInLeft" data-wow-delay="0.3s"><i class="bi bi-person-check" style="margin-right: 6px;"></i>About Us</a>
+        </div>
+        {% if is_auth == True %} 
+        <div class="signInOption headerOptionAreaActive" style="background-color: #E5E5CB;">
+            <a href="{% url 'settings' %}" class="headerOptionLink headerOptionLinkActive wow fadeInRight " data-wow-delay="0.4s"><i class="bi bi-person-circle" style="margin-right: 6px;"></i>{{firstname}}</a>
+        </div>
+        {% endif %}
+    </header>
+
+    <!--
+        End Header
+    -->
+
+    <!--
+        Main Content
+    -->
+
+        <div class="settingsContainer">
+            {% if messages %}
+                <p style="font-size: 19px; color: red; font-weight: 1000;">ERROR</p>
+                 <ul class="errorMessages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                 </ul>
+            {% endif %}
+            <span style="margin-top: 20px; margin-left: 10px; font-size: 19px; font-weight: 800; color: #3C2A21;">Logged In As > {{user}} </span> 
+            <span style="margin-top: 20px; margin-left: 10px; font-size: 19px; font-weight: 800; color: #3C2A21;">Change Password : </span> 
+            <div class="changePasswordContainer">
+                <form action="{% url 'changePassword' %}" class="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="password" placeholder="Old Password" name="old_password" required>
+                    <input type="password" placeholder="New Password" name="new_password1" required>
+                    <input type="password" placeholder="Re-Type Password" name="new_password2" required>
+                    <input type="submit" value="Save" class="changePasswordButton">
+                </form>
+            </div>
+            <span style="margin-top: 20px; margin-left: 10px; font-size: 19px; font-weight: 800; color: #3C2A21;">Change First Name and Last Name : </span> 
+            <div class="changePasswordContainer">
+                <form action="{% url 'handle_names' %}" class="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="text" placeholder="First Name" name="first_name" value="{{firstname}}" required>
+                    <input type="text" placeholder="Last Name" name="last_name" value="{{lastname}}" required>
+                    <input type="submit" value="Save" class="changePasswordButton">
+                </form>
+            </div>
+
+            <div class="logoutContainer">
+                <form action="{% url 'logout' %}">
+                    <input type="submit" value="Logout">
+                </form>
+            </div>
+        </div>
+
+    <!--
+        End Main Content
+    -->
+
+
+</body>
+</html>
